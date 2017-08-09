@@ -1,0 +1,355 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("eebf5363-78ec-4565-a995-770cf65217a0",
+	'Rendering_Job',
+	15,
+	'Rendering_Job',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("192f5b23-a224-4550-91fa-44643f772208",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	'Emit',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select one test_session related by self->Test_Session[R5];
+Rendering::Data(target_id: self.client_id, value: param.value);
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("22a224b2-d79e-4263-adc6-e0e20f81b31c",
+	"192f5b23-a224-4550-91fa-44643f772208",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("f2e2ceb0-a492-4cee-b60e-7ef9814f2270",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	'Emit_Line',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'linebreak = Unit_Testing_String_Rendering::Render_ASCII(code: ASCII_LINEBREAK);
+self.Emit(value: param.value);
+self.Emit(value: linebreak);
+',
+	1,
+	'',
+	"192f5b23-a224-4550-91fa-44643f772208");
+INSERT INTO O_TPARM
+	VALUES ("fb83877b-7021-4321-aa84-a9b2df4f9188",
+	"f2e2ceb0-a492-4cee-b60e-7ef9814f2270",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("6af9e615-3f52-453a-9d87-7b6fee5fb05c",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	'Emit_Integer',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'value = Unit_Testing_String_Rendering::Render_Integer(value: param.value);
+self.Emit(value: value);
+',
+	1,
+	'',
+	"f2e2ceb0-a492-4cee-b60e-7ef9814f2270");
+INSERT INTO O_TPARM
+	VALUES ("b2358319-4fda-4507-93f1-3a3c0d6c1c71",
+	"6af9e615-3f52-453a-9d87-7b6fee5fb05c",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("86a4ee10-0ab5-4fad-ab19-9a4caa392513",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	'Emit_XML_Escaped',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'xml = param.value;
+
+quot = Unit_Testing_String_Rendering::Render_ASCII(code: ASCII_DOUBLE_QUOTE);
+
+xml = Unit_Testing_String_Rendering::Replace(str: xml, old: "&", new: "&amp;");
+xml = Unit_Testing_String_Rendering::Replace(str: xml, old: "''''", new: "&apos;");
+xml = Unit_Testing_String_Rendering::Replace(str: xml, old: "<", new: "&lt;");
+xml = Unit_Testing_String_Rendering::Replace(str: xml, old: ">", new: "&gt;");
+xml = Unit_Testing_String_Rendering::Replace(str: xml, old: quot, new: "&quot;");
+
+self.Emit(value: xml);
+',
+	1,
+	'',
+	"6af9e615-3f52-453a-9d87-7b6fee5fb05c");
+INSERT INTO O_TPARM
+	VALUES ("987e3c25-754b-400a-88bd-08a6caa26f0d",
+	"86a4ee10-0ab5-4fad-ab19-9a4caa392513",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("2cebf717-7ad3-44c6-9f99-006912cba76c",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	'Render_XML',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many test_suites related by self->Test_Session[R5]
+									   ->Test_Case[R2]
+									   ->Test_Suite[R1];
+
+self.Emit(value: "<testsuites>");
+
+for each test_suite in test_suites
+	select many test_cases related by test_suite->Test_Case[R1];
+	
+	self.Emit(value: "<testsuite");
+	
+	self.Emit(value: " name=''");
+	self.Emit_XML_Escaped(value: test_suite.name);
+	self.Emit(value: "''");
+	
+	self.Emit(value: " tests=''");
+	self.Emit_Integer(value: cardinality test_cases);
+	self.Emit(value: "''");
+	
+	self.Emit(value: ">");
+	
+	for each test_case in test_cases
+		select many test_results related by test_case->Test_Execution[R2]
+												     ->Test_Result[R4] 
+								 where (selected.session_id == self.session_id);
+		
+		self.Emit(value: "<testcase");
+		
+		self.Emit(value: " name=''");
+		self.Emit_XML_Escaped(value: test_case.name);
+		self.Emit(value: "''");
+	
+		self.Emit(value: " assertions=''");
+		self.Emit_Integer(value: cardinality test_results);
+		self.Emit(value: "''");
+	
+		self.Emit(value: ">");
+		
+		for each test_result in test_results
+			if test_result.outcome == Outcome::Failure
+				self.Emit(value: "<failure message=''");
+				self.Emit_XML_Escaped(value: test_result.message);
+				self.Emit(value: "''/>");
+				
+			elif test_result.outcome == Outcome::Error
+				self.Emit(value: "<error message=''");
+				self.Emit_XML_Escaped(value: test_result.message);
+				self.Emit(value: "''/>");
+				
+			end if;
+		end for;
+		
+		if empty test_results
+			self.Emit(value: "</skipped>");
+		end if;
+		
+		self.Emit(value: "</testcase>");
+	end for;
+	
+	self.Emit(value: "</testsuite>");
+end for;
+
+self.Emit(value: "</testsuites>");
+',
+	1,
+	'',
+	"86a4ee10-0ab5-4fad-ab19-9a4caa392513");
+INSERT INTO O_TFR
+	VALUES ("2420b2f8-746e-4613-9984-06600a3f84c8",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	'Render_TAP',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many test_results related by self->Test_Session[R5]
+									    ->Test_Execution[R2]
+									    ->Test_Result[R4];
+
+self.Emit_Integer(value: 1);
+self.Emit(value: "..");
+self.Emit_Integer(value: cardinality test_results);
+self.Emit_Line(value: "");
+
+test_number = 1;
+for each test_result in test_results
+	if test_result.outcome == Outcome::Pass
+		self.Emit(value: "ok");
+		
+	elif test_result.outcome == Outcome::Failure
+		self.Emit(value: "not ok");
+		
+	elif test_result.outcome == Outcome::Error
+		self.Emit(value: "not ok");
+	end if;
+	
+	self.Emit(value: " ");
+	self.Emit_Integer(value: test_number);
+	self.Emit(value: " - ");
+	self.Emit_Line(value: test_result.message);
+	
+	test_number = test_number + 1;
+end for;
+',
+	1,
+	'',
+	"2cebf717-7ad3-44c6-9f99-006912cba76c");
+INSERT INTO O_REF
+	VALUES ("eebf5363-78ec-4565-a995-770cf65217a0",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	0,
+	"7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"403647d4-2a4e-4d73-a713-8b6a33719a66",
+	"a89fcbc3-f3f3-437b-8b47-4514f7941cd0",
+	"33ba46c6-3706-48cf-8f1f-07438cd3c038",
+	"22ed94a1-3245-48a6-b0d8-ab871e4953e9",
+	"d8023c75-050e-417a-9e42-2ba2f92e30be",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test_Session',
+	'session_id',
+	'R5.''render results from''');
+INSERT INTO R_RGO_PROXY
+	VALUES ("eebf5363-78ec-4565-a995-770cf65217a0",
+	"403647d4-2a4e-4d73-a713-8b6a33719a66",
+	"a89fcbc3-f3f3-437b-8b47-4514f7941cd0",
+	'../Classes.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	0,
+	"403647d4-2a4e-4d73-a713-8b6a33719a66",
+	"33ba46c6-3706-48cf-8f1f-07438cd3c038",
+	'../Classes.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("22ed94a1-3245-48a6-b0d8-ab871e4953e9",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	"7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	1,
+	'session_id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	'../Test_Session/Test_Session.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("22ed94a1-3245-48a6-b0d8-ab871e4953e9",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	"00000000-0000-0000-0000-000000000000",
+	'session_id',
+	'',
+	'',
+	'session_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("b2f9866e-67fe-4e79-92a9-552c28845c74",
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_BATTR
+	VALUES ("b2f9866e-67fe-4e79-92a9-552c28845c74",
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_ATTR
+	VALUES ("b2f9866e-67fe-4e79-92a9-552c28845c74",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	"1932ebcd-1078-4ee9-b11a-9743298a46d0",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("83013dd5-5c42-4431-ad61-4940b08f2e15",
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_BATTR
+	VALUES ("83013dd5-5c42-4431-ad61-4940b08f2e15",
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_ATTR
+	VALUES ("83013dd5-5c42-4431-ad61-4940b08f2e15",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	"22ed94a1-3245-48a6-b0d8-ab871e4953e9",
+	'format',
+	'',
+	'',
+	'format',
+	0,
+	"bc130904-a076-4d86-9fd2-aac4f356855d",
+	'',
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc130904-a076-4d86-9fd2-aac4f356855d",
+	"00000000-0000-0000-0000-000000000000",
+	'Rendering_Format',
+	'',
+	'',
+	'../../Data_Types/Data_Types.xtuml');
+INSERT INTO O_NBATTR
+	VALUES ("1932ebcd-1078-4ee9-b11a-9743298a46d0",
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_BATTR
+	VALUES ("1932ebcd-1078-4ee9-b11a-9743298a46d0",
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_ATTR
+	VALUES ("1932ebcd-1078-4ee9-b11a-9743298a46d0",
+	"eebf5363-78ec-4565-a995-770cf65217a0",
+	"83013dd5-5c42-4431-ad61-4940b08f2e15",
+	'client_id',
+	'',
+	'',
+	'client_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_ID
+	VALUES (1,
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO O_ID
+	VALUES (2,
+	"eebf5363-78ec-4565-a995-770cf65217a0");
+INSERT INTO PE_PE
+	VALUES ("eebf5363-78ec-4565-a995-770cf65217a0",
+	1,
+	"f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	"6afdceea-e9a7-4fea-bc48-a8b00a75b21a",
+	'Classes',
+	'',
+	0,
+	'../Classes.xtuml');

@@ -1,0 +1,234 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	'Child_Execution',
+	17,
+	'Child_Execution',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("a4c5e9d0-7f4d-4c0e-95f3-f18e1bb7de3a",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	'Send_Assertion',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'if param.value == true
+	_ = Unit_Testing_IPC::Send_Message(fd: self.file_descriptor + 0, 
+									   type: IPC_MESSAGE_PASS,
+									   value: param.message);
+else
+	_ = Unit_Testing_IPC::Send_Message(fd: self.file_descriptor + 0,
+									   type: IPC_MESSAGE_FAILURE,
+									   value: param.message);
+end if;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("3d4be318-22b3-45e5-8ab2-21276cc0c885",
+	"a4c5e9d0-7f4d-4c0e-95f3-f18e1bb7de3a",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("12d932cc-ad93-4fc1-afd9-6659fc604fe0",
+	"a4c5e9d0-7f4d-4c0e-95f3-f18e1bb7de3a",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"3d4be318-22b3-45e5-8ab2-21276cc0c885",
+	'');
+INSERT INTO O_TFR
+	VALUES ("3fbbfdcd-e7e7-4042-ae32-6f21353a13b4",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	'Send_Cancellation',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'_ = Unit_Testing_IPC::Send_Message(fd: self.file_descriptor + 0,
+								   type: IPC_MESSAGE_FAILURE,
+								   value: param.message);
+',
+	1,
+	'',
+	"a4c5e9d0-7f4d-4c0e-95f3-f18e1bb7de3a");
+INSERT INTO O_TPARM
+	VALUES ("33e5661f-157e-43c4-97a5-ce46428a1b30",
+	"3fbbfdcd-e7e7-4042-ae32-6f21353a13b4",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1c82d179-d43a-4e52-aff4-608e5f4b251a",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	'Send_Termination',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'_ = Unit_Testing_IPC::Send_Message(fd: self.file_descriptor + 0,
+								   type: IPC_MESSAGE_TERMINATE,
+								   value: "");
+Unit_Testing_IPC::Close(fd: self.file_descriptor + 0);
+Unit_Testing_IPC::Exit();
+',
+	1,
+	'',
+	"3fbbfdcd-e7e7-4042-ae32-6f21353a13b4");
+INSERT INTO O_NBATTR
+	VALUES ("d79ca639-ad93-434f-a7f6-c9348b1fe6b7",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac");
+INSERT INTO O_BATTR
+	VALUES ("d79ca639-ad93-434f-a7f6-c9348b1fe6b7",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac");
+INSERT INTO O_ATTR
+	VALUES ("d79ca639-ad93-434f-a7f6-c9348b1fe6b7",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"67965be7-a5bc-432c-9e97-d75d74aeb135",
+	'file_descriptor',
+	'',
+	'',
+	'file_descriptor',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	0,
+	"31737886-c278-4a2b-ab07-d781c3b26de6",
+	"ff10fee5-948b-4409-a3d9-d7d40ad7a898",
+	"ec4d43f4-4210-4c04-a825-d125c3145190",
+	"7c2f647b-0e43-40c6-82f0-dd5a78be4d59",
+	"306a5dd2-4725-4740-8192-4b4710cb35b7",
+	"0ebcfe26-e48e-49a5-985b-87f5f4ae7bd6",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Launched_Execution',
+	'case_id',
+	'R8');
+INSERT INTO R_RGO_PROXY
+	VALUES ("fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"ff10fee5-948b-4409-a3d9-d7d40ad7a898",
+	"ec4d43f4-4210-4c04-a825-d125c3145190",
+	'../Classes.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("31737886-c278-4a2b-ab07-d781c3b26de6",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	0,
+	"ff10fee5-948b-4409-a3d9-d7d40ad7a898",
+	"7c2f647b-0e43-40c6-82f0-dd5a78be4d59",
+	'../Classes.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("306a5dd2-4725-4740-8192-4b4710cb35b7",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"eec50a8e-266a-417c-8534-c615058edcf9",
+	"7731f979-d790-4b22-a09e-36fbe5d3e623",
+	1,
+	'case_id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("eec50a8e-266a-417c-8534-c615058edcf9",
+	"7731f979-d790-4b22-a09e-36fbe5d3e623",
+	'../Test_Case/Test_Case.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("306a5dd2-4725-4740-8192-4b4710cb35b7",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"00000000-0000-0000-0000-000000000000",
+	'case_id',
+	'',
+	'',
+	'case_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	0,
+	"9244d5e5-4aec-4f9c-85df-3487085462da",
+	"ff10fee5-948b-4409-a3d9-d7d40ad7a898",
+	"ec4d43f4-4210-4c04-a825-d125c3145190",
+	"7c2f647b-0e43-40c6-82f0-dd5a78be4d59",
+	"67965be7-a5bc-432c-9e97-d75d74aeb135",
+	"0927943e-5130-432d-81fa-3d4b91cbf2e1",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Launched_Execution',
+	'session_id',
+	'R8');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("9244d5e5-4aec-4f9c-85df-3487085462da",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	0,
+	"ff10fee5-948b-4409-a3d9-d7d40ad7a898",
+	"7c2f647b-0e43-40c6-82f0-dd5a78be4d59",
+	'../Classes.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("67965be7-a5bc-432c-9e97-d75d74aeb135",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	1,
+	'session_id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	'../Test_Session/Test_Session.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("67965be7-a5bc-432c-9e97-d75d74aeb135",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	"306a5dd2-4725-4740-8192-4b4710cb35b7",
+	'session_id',
+	'',
+	'',
+	'session_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac");
+INSERT INTO O_OIDA
+	VALUES ("306a5dd2-4725-4740-8192-4b4710cb35b7",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	0,
+	'case_id');
+INSERT INTO O_OIDA
+	VALUES ("67965be7-a5bc-432c-9e97-d75d74aeb135",
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	0,
+	'session_id');
+INSERT INTO O_ID
+	VALUES (1,
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac");
+INSERT INTO O_ID
+	VALUES (2,
+	"fd4481a4-f14b-4031-89fc-0b31d1b62bac");
+INSERT INTO PE_PE
+	VALUES ("fd4481a4-f14b-4031-89fc-0b31d1b62bac",
+	1,
+	"f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	"6afdceea-e9a7-4fea-bc48-a8b00a75b21a",
+	'Classes',
+	'',
+	0,
+	'../Classes.xtuml');

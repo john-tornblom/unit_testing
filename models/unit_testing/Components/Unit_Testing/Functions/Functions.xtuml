@@ -1,0 +1,140 @@
+-- BP 7.1.6 content: Package syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO EP_PKG
+	VALUES ("2cd409d5-fa1b-490b-8dfa-0e4fe33edc80",
+	"00000000-0000-0000-0000-000000000000",
+	"6afdceea-e9a7-4fea-bc48-a8b00a75b21a",
+	'Functions',
+	'',
+	0);
+INSERT INTO GD_MD
+	VALUES ("100ca01e-88a3-4b97-811f-a88a0e06fb2b",
+	112,
+	"2cd409d5-fa1b-490b-8dfa-0e4fe33edc80",
+	108,
+	0,
+	0,
+	1,
+	1,
+	1,
+	12,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'',
+	'unit_testing::Components::Unit_Testing::Functions');
+INSERT INTO DIM_DIA
+	VALUES ("100ca01e-88a3-4b97-811f-a88a0e06fb2b",
+	'',
+	1.000000,
+	4000.000000,
+	3000.000000,
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_SYNC
+	VALUES ("100e7a06-7ea4-46da-9188-24105537bf43",
+	"00000000-0000-0000-0000-000000000000",
+	'Initialize',
+	'',
+	'create object instance test_client of Test_Client;
+create object instance test_session of Test_Session;
+relate test_session to test_client across R6;
+
+test_client.id = Singleton::Single_Instance;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO PE_PE
+	VALUES ("100e7a06-7ea4-46da-9188-24105537bf43",
+	1,
+	"2cd409d5-fa1b-490b-8dfa-0e4fe33edc80",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("2bbe8edf-1a36-4bc7-81f4-a5f6ca826063",
+	"00000000-0000-0000-0000-000000000000",
+	'Render',
+	'',
+	'select any test_session from instances of Test_Session
+						where (selected.client_id == param.session_id);
+if empty test_session
+	send Rendering::Done(target_id: param.target_id);
+	return;
+end if;
+
+create object instance rendering_job of Rendering_Job;
+rendering_job.format = param.format;
+rendering_job.client_id = param.target_id;
+relate rendering_job to test_session across R5;
+
+//TODO: don''t assume test session is finished before rendering
+generate Rendering_Job1:Results_Ready() to rendering_job;
+',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("84ead41d-16ed-4930-87d2-a81e27e9db02",
+	"2bbe8edf-1a36-4bc7-81f4-a5f6ca826063",
+	'session_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_SPARM
+	VALUES ("f4db8271-e2c9-4a58-b446-2b5eab97895f",
+	"2bbe8edf-1a36-4bc7-81f4-a5f6ca826063",
+	'format',
+	"bc130904-a076-4d86-9fd2-aac4f356855d",
+	0,
+	'',
+	"b1d775db-e4df-4e24-818c-f1bdf347d323",
+	'');
+INSERT INTO S_DT_PROXY
+	VALUES ("bc130904-a076-4d86-9fd2-aac4f356855d",
+	"00000000-0000-0000-0000-000000000000",
+	'Rendering_Format',
+	'',
+	'',
+	'../Data_Types/Data_Types.xtuml');
+INSERT INTO S_SPARM
+	VALUES ("b1d775db-e4df-4e24-818c-f1bdf347d323",
+	"2bbe8edf-1a36-4bc7-81f4-a5f6ca826063",
+	'target_id',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"84ead41d-16ed-4930-87d2-a81e27e9db02",
+	'');
+INSERT INTO PE_PE
+	VALUES ("2bbe8edf-1a36-4bc7-81f4-a5f6ca826063",
+	1,
+	"2cd409d5-fa1b-490b-8dfa-0e4fe33edc80",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO PE_PE
+	VALUES ("2cd409d5-fa1b-490b-8dfa-0e4fe33edc80",
+	1,
+	"00000000-0000-0000-0000-000000000000",
+	"6ca3991c-309c-4704-9f65-f2c61907d323",
+	7);
+INSERT INTO C_C_PROXY
+	VALUES ("6ca3991c-309c-4704-9f65-f2c61907d323",
+	"00000000-0000-0000-0000-000000000000",
+	"00000000-0000-0000-0000-000000000000",
+	'Unit_Testing',
+	'',
+	0,
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'../Unit_Testing.xtuml');
+INSERT INTO S_SYS_PROXY
+	VALUES ("6afdceea-e9a7-4fea-bc48-a8b00a75b21a",
+	'unit_testing',
+	1,
+	'../../../unit_testing.xtuml');

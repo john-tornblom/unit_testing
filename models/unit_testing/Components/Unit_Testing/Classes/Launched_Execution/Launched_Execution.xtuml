@@ -1,0 +1,179 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	'Launched_Execution',
+	11,
+	'Launched_Execution',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("561b9efd-9d49-49ff-986b-aabfa2f5c495",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	'Start',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'child_fd = -1;
+parent_fd = -1;
+Unit_Testing_IPC::Pipe(read_fd: parent_fd, write_fd: child_fd);
+
+process_id = Unit_Testing_IPC::Fork();
+if process_id == 0
+	// This is the new child process, launch the test case
+	create object instance child_execution of Child_Execution;
+	relate child_execution to self across R8;
+	child_execution.file_descriptor = child_fd;
+	select one test_case related by self->Test_Execution[R3]->Test_Case[R2];
+	Execution::Launch(case_id: test_case.client_id);
+	
+else
+	// This is the parent process
+	create object instance parent_execution of Parent_Execution;
+	relate parent_execution to self across R8;
+	parent_execution.file_descriptor = parent_fd;
+	parent_execution.process_id = process_id;
+	
+	if process_id > 0
+		parent_execution.Syncronize();
+	else
+		// Forking not supported, run test cases in parent process
+		select one test_case related by self->Test_Execution[R3]->Test_Case[R2];
+		Execution::Launch(case_id: test_case.client_id);
+	end if;
+
+end if;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_REF
+	VALUES ("9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	"338c56f9-4fca-4ce0-bc05-0029390802b7",
+	0,
+	"6a892b30-5d77-45d7-8f3e-00befd37955d",
+	"e04fc2c9-a764-4aba-b513-bbf5b8eaca24",
+	"b9e6a19f-01c0-45a4-8904-4f0ea6b8799f",
+	"5a1ba9a2-66dd-4daf-9884-241c27f6cb64",
+	"31737886-c278-4a2b-ab07-d781c3b26de6",
+	"c83593d2-9261-4de8-be01-63e0910080c8",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test_Execution',
+	'case_id',
+	'R3');
+INSERT INTO R_RGO_PROXY
+	VALUES ("9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	"e04fc2c9-a764-4aba-b513-bbf5b8eaca24",
+	"b9e6a19f-01c0-45a4-8904-4f0ea6b8799f",
+	'../Classes.xtuml');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("6a892b30-5d77-45d7-8f3e-00befd37955d",
+	"338c56f9-4fca-4ce0-bc05-0029390802b7",
+	0,
+	"e04fc2c9-a764-4aba-b513-bbf5b8eaca24",
+	"5a1ba9a2-66dd-4daf-9884-241c27f6cb64",
+	'../Classes.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("31737886-c278-4a2b-ab07-d781c3b26de6",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	"eec50a8e-266a-417c-8534-c615058edcf9",
+	"7731f979-d790-4b22-a09e-36fbe5d3e623",
+	1,
+	'case_id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("eec50a8e-266a-417c-8534-c615058edcf9",
+	"7731f979-d790-4b22-a09e-36fbe5d3e623",
+	'../Test_Case/Test_Case.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("31737886-c278-4a2b-ab07-d781c3b26de6",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	"00000000-0000-0000-0000-000000000000",
+	'case_id',
+	'',
+	'',
+	'case_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_REF
+	VALUES ("9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	"338c56f9-4fca-4ce0-bc05-0029390802b7",
+	0,
+	"e0c7ddff-8594-41ba-a7f3-e6eea0df0e2b",
+	"e04fc2c9-a764-4aba-b513-bbf5b8eaca24",
+	"b9e6a19f-01c0-45a4-8904-4f0ea6b8799f",
+	"5a1ba9a2-66dd-4daf-9884-241c27f6cb64",
+	"9244d5e5-4aec-4f9c-85df-3487085462da",
+	"2d835075-cd5b-447d-a721-7e4299a6fa0a",
+	"00000000-0000-0000-0000-000000000000",
+	0,
+	'',
+	'Test_Execution',
+	'session_id',
+	'R3');
+INSERT INTO O_RTIDA_PROXY
+	VALUES ("e0c7ddff-8594-41ba-a7f3-e6eea0df0e2b",
+	"338c56f9-4fca-4ce0-bc05-0029390802b7",
+	0,
+	"e04fc2c9-a764-4aba-b513-bbf5b8eaca24",
+	"5a1ba9a2-66dd-4daf-9884-241c27f6cb64",
+	'../Classes.xtuml');
+INSERT INTO O_RATTR
+	VALUES ("9244d5e5-4aec-4f9c-85df-3487085462da",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	"7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	1,
+	'session_id');
+INSERT INTO O_BATTR_PROXY
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	'../Test_Session/Test_Session.xtuml');
+INSERT INTO O_ATTR
+	VALUES ("9244d5e5-4aec-4f9c-85df-3487085462da",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	"31737886-c278-4a2b-ab07-d781c3b26de6",
+	'session_id',
+	'',
+	'',
+	'session_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9");
+INSERT INTO O_OIDA
+	VALUES ("31737886-c278-4a2b-ab07-d781c3b26de6",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	0,
+	'case_id');
+INSERT INTO O_OIDA
+	VALUES ("9244d5e5-4aec-4f9c-85df-3487085462da",
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	0,
+	'session_id');
+INSERT INTO O_ID
+	VALUES (1,
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9");
+INSERT INTO O_ID
+	VALUES (2,
+	"9d3edb4f-f9b4-4642-81f7-76c09716dbc9");
+INSERT INTO PE_PE
+	VALUES ("9d3edb4f-f9b4-4642-81f7-76c09716dbc9",
+	1,
+	"f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	"6afdceea-e9a7-4fea-bc48-a8b00a75b21a",
+	'Classes',
+	'',
+	0,
+	'../Classes.xtuml');

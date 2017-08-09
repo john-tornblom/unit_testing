@@ -1,0 +1,170 @@
+-- BP 7.1.6 content: ModelClass syschar: 3 persistence-version: 7.1.6
+
+INSERT INTO O_OBJ
+	VALUES ("9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	'Test_Session',
+	7,
+	'Test_Session',
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TFR
+	VALUES ("b8921a6e-8ba3-4989-a3bb-10206d17593e",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	'Assert',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many launched_executions related by self->Test_Execution[R2]
+											   ->Launched_Execution[R3];
+for each launched_execution in launched_executions
+	select one test_execution related by launched_execution->Test_Execution[R3];
+	generate Test_Execution2:Assert(value: param.value, 
+									message: param.message) to test_execution;
+end for;
+',
+	1,
+	'',
+	"00000000-0000-0000-0000-000000000000");
+INSERT INTO O_TPARM
+	VALUES ("47e0a07d-7585-4d02-89aa-c0d882f5ece2",
+	"b8921a6e-8ba3-4989-a3bb-10206d17593e",
+	'value',
+	"ba5eda7a-def5-0000-0000-000000000001",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("b2034275-8947-475b-98ed-ccd9b43731b1",
+	"b8921a6e-8ba3-4989-a3bb-10206d17593e",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"47e0a07d-7585-4d02-89aa-c0d882f5ece2",
+	'');
+INSERT INTO O_TFR
+	VALUES ("dc2255df-0516-490c-8fec-c1416332d3e2",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	'Cancel',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many launched_executions related by self->Test_Execution[R2]
+											   ->Launched_Execution[R3];
+for each launched_execution in launched_executions
+	select one test_execution related by launched_execution->Test_Execution[R3];
+	generate Test_Execution3:Cancel(message: param.message) to test_execution;
+end for;
+',
+	1,
+	'',
+	"b8921a6e-8ba3-4989-a3bb-10206d17593e");
+INSERT INTO O_TPARM
+	VALUES ("c383eabb-2f5a-45e9-aee4-bae5b66a83fe",
+	"dc2255df-0516-490c-8fec-c1416332d3e2",
+	'message',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO O_TFR
+	VALUES ("1b88542d-1d09-4b5e-8c4c-b1e30aeec965",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	'Terminate',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many launched_executions related by self->Test_Execution[R2]
+											   ->Launched_Execution[R3];
+for each launched_execution in launched_executions
+	select one test_execution related by launched_execution->Test_Execution[R3];
+	generate Test_Execution4:Terminate() to test_execution;
+end for;
+',
+	1,
+	'',
+	"dc2255df-0516-490c-8fec-c1416332d3e2");
+INSERT INTO O_NBATTR
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_BATTR
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_ATTR
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	"00000000-0000-0000-0000-000000000000",
+	'session_id',
+	'',
+	'',
+	'session_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("58c3c47c-48f6-48f1-8cbf-f4717c374d99",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_BATTR
+	VALUES ("58c3c47c-48f6-48f1-8cbf-f4717c374d99",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_ATTR
+	VALUES ("58c3c47c-48f6-48f1-8cbf-f4717c374d99",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	"7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	'client_id',
+	'',
+	'',
+	'client_id',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000005",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("4c325688-2708-4e2a-ad25-16108503a299",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_BATTR
+	VALUES ("4c325688-2708-4e2a-ad25-16108503a299",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_ATTR
+	VALUES ("4c325688-2708-4e2a-ad25-16108503a299",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	"58c3c47c-48f6-48f1-8cbf-f4717c374d99",
+	'current_state',
+	'',
+	'',
+	'current_state',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000006",
+	'',
+	'');
+INSERT INTO O_ID
+	VALUES (0,
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_OIDA
+	VALUES ("7ec6c937-0767-4a25-af80-1b43eb0d4a81",
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	0,
+	'session_id');
+INSERT INTO O_ID
+	VALUES (1,
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO O_ID
+	VALUES (2,
+	"9360ca0f-edf9-4d01-9e54-b7fba2a20057");
+INSERT INTO PE_PE
+	VALUES ("9360ca0f-edf9-4d01-9e54-b7fba2a20057",
+	1,
+	"f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	4);
+INSERT INTO EP_PKG_PROXY
+	VALUES ("f0fb44e2-3285-4a85-a4c3-1277b4c67860",
+	"00000000-0000-0000-0000-000000000000",
+	"6afdceea-e9a7-4fea-bc48-a8b00a75b21a",
+	'Classes',
+	'',
+	0,
+	'../Classes.xtuml');
