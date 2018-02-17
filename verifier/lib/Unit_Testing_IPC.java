@@ -48,7 +48,8 @@ public class Unit_Testing_IPC {
 		return 1;
 	}
 
-	public static void Pipe(int fd1, int fd2) {
+	public static void Pipe(BPInteger fd1, BPInteger fd2) {
+		
 	}
 
 	public static void Close(int fd) {
